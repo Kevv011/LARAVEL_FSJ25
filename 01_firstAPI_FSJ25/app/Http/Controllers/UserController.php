@@ -48,7 +48,7 @@ class UserController extends Controller
                 'password' => 'required|string|min:8'
             ]);
 
-            //Verificando usuario ("Attempt" es usado para validar datos, devolviendo TRUE o FALSE)
+            //Verificando usuario ("Attempt" es usado para validar datos en la tabla de la DB, devolviendo TRUE o FALSE)
             $credentials = $request->only('email', 'password');
 
             if(!Auth::attempt($credentials)) {
@@ -56,7 +56,7 @@ class UserController extends Controller
             }
 
             //Obtencion de los datos ingresados 
-            $user = $request->user();
+            $user = $request->user(); //Proviene de Illuminate\Http\Request y devuelve los datos del usuario que ha hecho login
 
             //Crear token
             $token = $user->createToken('auth_token')->plainTextToken;
@@ -66,7 +66,7 @@ class UserController extends Controller
                 'message' => 'User logged successfuly',
                 'user' => $user,
                 'token' => $token,
-                'token_type' => 'Bearer'
+                'token_type' => 'Bearer' //Si falta el tipo de token, se rechaza la solicitud
             ]);
 
         }catch(Exception $error){
