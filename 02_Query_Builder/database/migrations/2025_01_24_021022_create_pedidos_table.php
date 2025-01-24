@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("producto");                   //Campo Producto de tipo STRING
             $table->integer("cantidad");                  //Campo Cantidad de tipo INT
             $table->float("total");                       //Campo Total de tipo FLOAT
-            $table->foreignId("user_id")->constrained();  //FK de tabla Users
+            $table->foreignId("usuario_id")->constrained()->onDelete('cascade');  //FK de tabla Users
             $table->timestamps();
         });
     }
